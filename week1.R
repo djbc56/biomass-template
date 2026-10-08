@@ -25,7 +25,17 @@ nrow(elec)
 
 # How many years of data? What fuel types are included?
 # Try: str(elec) and summary(elec)
+# Step 1. Show the first few rows of `elec`.
+elec <- read.csv("data/uk_electricity.csv")
+elec
+head(elec)
 
+# Step 2. Show the column names.
+names(elec)
+
+# Step 3. Print the number of years the data covers.
+elec$year
+nrow(elec)
 
 
 # --- Exercise 2: Plot biomass over time --------------------------------------
@@ -33,13 +43,36 @@ nrow(elec)
 # Plot bioenergy generation (TWh) against year.
 # What's the trend?
 
+# Step 1. Plot bioenergy generation (y) against year (x).
+elec <- read.csv("data/uk_electricity.csv")
+names(elec)
+plot(y = elec$bioenergy_twh, x = elec$year, ylab = "Total Uk energy generation (twh)", xlab = "calendar year", main = "Total Uk energy generation against year")
 
+# Step 2. Give the plot a title and label both axes, with units.
 
 # --- Exercise 3: Add coal for comparison --------------------------------------
 
 # Biomass went up — but is that a big change? Plot coal on the same axes.
 # What story do the two trends tell together?
+# Step 1. Plot bioenergy against year as a line, with axes labelled
+#         and a y-range big enough for coal as well as biomass.
 
+par(mfrow=c(1,1))
+plot(y= elec$bioenergy, x=elec$year, type = "l", 
+       ylim = c(0,250),
+       ylab= "bioenergy (twh)", 
+       xlab= "year",
+     col="light blue")
+lines(y= elec$coal_twh, x=elec$year, type = "l",
+     ylab= "coal twh", 
+       xlab= "year",
+     col="light green")
+# Step 2. Add coal to the same plot, in a different colour and style.
+
+
+# Step 3. Add a legend naming the two series.
+legend("topleft", legend = c("bioenergy", "coal"),
+                 col = c("lightblue","lightgreen"), lty = c(1), lwd=2)
 
 
 # --- Exercise 4: Summary statistics -------------------------------------------
